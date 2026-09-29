@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ledgerly - Expense Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Ledgerly</h1>
+    <div class="topbar-actions">
+      <button class="btn ghost" id="themeBtn">Dark mode</button>
+      <button class="btn ghost" id="exportBtn">Export CSV</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Summary -->
+    <section class="summary" aria-label="Summary">
+      <div class="card balance">
+        <p class="label">Balance</p>
+        <p class="big" id="balance">₹0</p>
+      </div>
+      <div class="card">
+        <p class="label">Income this month</p>
+        <p class="big pos" id="income">₹0</p>
+      </div>
+      <div class="card">
+        <p class="label">Spent this month</p>
+        <p class="big neg" id="spent">₹0</p>
+      </div>
+    </section>
+
+    <!-- Charts (placeholders: swap for Chart.js in step 4) -->
+    <section class="charts">
+      <div class="card">
+        <h2>Where your money went this month</h2>
+        <div class="chart-box"><canvas id="donutChart" role="img" aria-label="Spending by category this month"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Spending, last 6 months</h2>
+        <div class="chart-box"><canvas id="barChart" role="img" aria-label="Spending per month, last 6 months"></canvas></div>
+      </div>
+    </section>
+
+    <!-- Transactions -->
+    <section class="card">
+      <div class="table-head">
+        <h2>Transactions</h2>
+        <div class="filters">
+          <input type="search" id="searchBox" placeholder="Search notes" aria-label="Search notes">
+          <select id="catFilter" aria-label="Filter by category"><option value="All">All categories</option><option>Income</option><option>Rent</option><option>Food</option><option>Travel</option><option>Bills</option><option>Other</option></select>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Note</th><th>Category</th><th class="num">Amount</th><th></th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <button class="fab" id="openModal">+ Add transaction</button>
+
+  <dialog id="modal">
+    <form class="form" id="txForm">
+      <h2 id="formTitle">Add transaction</h2>
+      <label>Amount (₹)<input type="number" id="fAmount" min="1" step="any" required></label>
+      <label>Type
+        <select id="fType"><option value="expense">Expense</option><option value="income">Income</option></select>
+      </label>
+      <label>Category
+        <select id="fCategory"><option>Rent</option><option>Food</option><option>Travel</option><option>Bills</option><option>Other</option></select>
+      </label>
+      <label>Date<input type="date" id="fDate" required></label>
+      <label>Note<input type="text" id="fNote" maxlength="60" required></label>
+      <div class="form-actions">
+        <button type="button" class="btn ghost" id="closeModal">Cancel</button>
+        <button type="submit" class="btn primary">Save transaction</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
